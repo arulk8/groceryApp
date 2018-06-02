@@ -1,21 +1,28 @@
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Component, OnInit } from '@angular/core';
-import * as firebase from 'firebase';
+import { AuthService } from './../service/auth.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
-  user: firebase.User;
-  constructor( public afAuth: AngularFireAuth) {
-    afAuth.authState.subscribe( user => this.user = user);
+export class NavbarComponent implements OnInit, OnDestroy {
+  public user$: any;
+  private sub: any;
+  constructor( public authService: AuthService) {
+   this.sub = authService.user$.subscribe(user => this.user$ = user);
+
   }
- logout() {
-  this.afAuth.auth.signOut();
- }
+
+  logout() {
+    this.authService.logout();
+  }
+
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }

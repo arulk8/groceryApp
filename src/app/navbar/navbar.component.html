@@ -13,10 +13,13 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/shopping-cart']" routerLinkActive="active">shopping Cart</a>
       </li>
-      <li *ngIf="!user" class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a>
-      </li>
-      <li *ngIf="user" ngbDropdown class="nav-item dropdown">
+      <ng-template #anonymousUser>
+          <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a>
+          </li>
+      </ng-template>
+      
+      <li *ngIf="user$ as user; else anonymousUser" ngbDropdown class="nav-item dropdown">
           <a ngbDropdownToggle class="nav-link dropdown-toggle"  
               id="navbarDropdown" role="button" data-toggle="dropdown" 
               aria-haspopup="true" aria-expanded="false">
