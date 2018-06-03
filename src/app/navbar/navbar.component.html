@@ -23,12 +23,12 @@
           <a ngbDropdownToggle class="nav-link dropdown-toggle"  
               id="navbarDropdown" role="button" data-toggle="dropdown" 
               aria-haspopup="true" aria-expanded="false">
-                {{user.displayName}}
+                {{user.name}}
       </a>
           <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" [routerLink]="['/my-orders']">My Orders</a>
-            <a class="dropdown-item" [routerLink]="['/admin/orders']">Manage Orders</a>
-            <a class="dropdown-item" [routerLink]="['/admin/products']">Manage Products</a>
+            <a *ngIf="user.isAdmin" class="dropdown-item" [routerLink]="['/admin/orders']">Manage Orders</a>
+            <a *ngIf="user.isAdmin" class="dropdown-item" [routerLink]="['/admin/products']">Manage Products</a>
             <a class="dropdown-item" (click)="logout()" >Log Out</a>
           </div>
       </li>

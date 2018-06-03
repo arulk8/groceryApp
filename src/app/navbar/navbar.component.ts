@@ -10,9 +10,8 @@ import { Observable } from 'rxjs';
 export class NavbarComponent implements OnInit, OnDestroy {
   public user$: any;
   private sub: any;
-  constructor( public authService: AuthService) {
-   this.sub = authService.user$.subscribe(user => this.user$ = user);
-
+  constructor(private authService: AuthService) {
+   this.sub = authService.appUser$.subscribe(user => this.user$ = user);
   }
 
   logout() {

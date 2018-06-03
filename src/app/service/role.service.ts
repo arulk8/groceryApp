@@ -17,7 +17,7 @@ export class RoleService {
     });
   }
 
-  get(uid: string) {
+  get(uid: string): AngularFireObject<AppUser> {
     return this.db.object('/users/' + uid);
   }
 }
