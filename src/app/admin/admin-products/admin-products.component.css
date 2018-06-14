@@ -1,0 +1,12 @@
+table {
+    width: 100%;
+  }
+.title{
+  width:60%
+}
+.price{
+  width:20%;
+}
+.symbol{
+  width:20%;
+}

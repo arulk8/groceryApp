@@ -1,0 +1,57 @@
+<div class="row container">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+<form #f="ngForm" (ngSubmit)="save(f.value)">
+<div class="form-group">
+    <label for="title">Title</label>
+    <input #title="ngModel" [(ngModel)]= "product.value.title" required name="title" id="title" type="text" class="form-control">
+    <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+      Title is required.  
+    </div>
+</div>
+
+<div class="form-group">
+  <label for="price">Price</label>
+      <input required #price="ngModel" [(ngModel)]= "product.value.price" name="price" id="price" type="number" class="form-control" [min]="0">
+      <div class="alert alert-danger" *ngIf="price.touched && price.invalid ">
+         <div *ngIf="price.errors.required">price is required</div>
+         <div *ngIf="price.errors.min">price should be 0 or high</div>
+      </div>
+</div>
+<div class="form-group">
+    <label for="category">Category</label>
+    <select required #category="ngModel" [(ngModel)]= "product.value.category" name="category" id="category" class="form-control">
+      <option value=""></option>
+      <option *ngFor ="let c of categories" [value]="c.key">{{c.value.name}}</option>
+      </select>
+     <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+       Category is Required
+    </div>
+</div>
+  <div class="form-group">
+      <label for="imageUrl">Image Url</label>
+      <input required url #imgUrl="ngModel" [(ngModel)]="product.value.imageUrl" name="imageUrl" id="imageUrl" type="text" class="form-control"/>
+      <div class="alert alert-danger" *ngIf="imgUrl.touched && imgUrl.invalid">
+        <div *ngIf="imgUrl.errors.required">Image is required</div>
+        <div *ngIf="imgUrl.errors.url">please enter a valid url</div>
+      </div>
+  </div>
+    <div class="form-group">
+      <button class="btn btn-primary">save</button>
+    
+      <button type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+    </div>
+</form>
+</div>
+
+<div class="col-md-3">
+      <!-- <div class="card" style="width: 20rem;">
+                <img class="card-img-top" [src]="product.imageUrl ||'http://via.placeholder.com/350x150'" alt="product">
+                <div class="card-body">
+                  <h4 class="card-title">{{ product.title }}</h4>
+                  <p class="card-text">{{ product.price | currency: 'INR':true }}</p>
+                </div>
+              </div>-->
+      <app-product-card [product]="product" [show-actions]="false"></app-product-card>
+</div>
+</div>

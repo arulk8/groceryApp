@@ -14,7 +14,10 @@ auth.user$.subscribe(user => {
   if (user) {
     userRole.save(user);
     let queryUrl = localStorage.getItem('queryurl');
-    ro.navigate([queryUrl]);
+    if (queryUrl) {
+      localStorage.removeItem('queryurl');
+      ro.navigate([queryUrl]);
+    }
   }
 });
 }

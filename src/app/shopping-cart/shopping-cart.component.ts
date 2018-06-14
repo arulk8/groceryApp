@@ -1,3 +1,4 @@
+import { CartService } from './../services/cart.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+  cart$: any;
+  constructor(private shoppingCart: CartService) { }
 
-  constructor() { }
-
-  ngOnInit() {
+  public  async ngOnInit() {
+    this.cart$ = await this.shoppingCart.getCartProducts();
   }
 
 }

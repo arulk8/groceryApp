@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <a class="navbar-brand" [routerLink]="['/']">Funky Fresh</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" 
     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
@@ -11,7 +11,10 @@
     <ul class="navbar-nav mr-auto">
       
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/shopping-cart']" routerLinkActive="active">shopping Cart</a>
+        <a class="nav-link" [routerLink]="['/shopping-cart']" routerLinkActive="active">
+          shopping Cart 
+          <span  class="badge badge-warning badge-phill">{{itemCount}}</span>
+        </a>
       </li>
       <ng-template #anonymousUser>
           <li class="nav-item">
