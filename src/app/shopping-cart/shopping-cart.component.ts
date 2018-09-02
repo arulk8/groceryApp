@@ -12,6 +12,11 @@ export class ShoppingCartComponent implements OnInit {
 
   public  async ngOnInit() {
     this.cart$ = await this.shoppingCart.getCartProducts();
+    this.cart$.subscribe(res => {
+      console.log(res);
+    });
   }
-
+  clearCart() {
+    this.shoppingCart.clearCart();
+}
 }

@@ -1,3 +1,16 @@
-<p>
-  my-orders works!
-</p>
+<table class="table" *ngIf="product">
+  <thead>
+      <tr>
+    <th>Customer</th>
+    <th>Date</th>
+    <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prod of product">
+      <td>{{prod.shippingAddress.name}}</td>
+      <td>{{prod.datePlaced}}</td>
+      <td></td>
+    </tr>
+    </tbody>
+</table>

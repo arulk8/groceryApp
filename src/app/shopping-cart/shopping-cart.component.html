@@ -2,23 +2,27 @@
 <h2>
   Shopping Cart
 </h2>
+
 </div>
 <div class="row no-gutters">
 <ng-container *ngIf="cart$ | async as cart">
-  <p>You have {{cart.count}} items in your Shopping Cart</p>
+  <p>You have {{cart.count}} items in your Shopping Cart <button *ngIf="cart.cartItems.length" (click)="clearCart()" class="btn btn-light btn-sm">Clear Shopping Cart</button></p>
+  
   <table class="table">
     <thead>
       <tr>
+        <th>Item</th>
         <th>Product</th>
         <th>Quantity</th>
-        <th>Price </th>
+        <th class="price" >Price </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of cart.cartItems" >
-        <td>{{item.product.title}}</td>
-        <td>{{item.quantity}}</td>
-        <td>{{item.product.price * item.quantity  | currency:'INR':'symbol'}}</td>
+        <td> <div  [style.backgroundImage]="'url('+item.value.product.imageUrl+')'" class="thumb"></div></td>
+        <td>{{item.value.product.title}}</td>
+        <td> <app-product-quantity [product]="item" [shopping-cart]="cart"></app-product-quantity></td>
+        <td class="price">{{item.value.product.price * item.value.quantity  | currency:'INR':'symbol'}}</td>
 
       </tr>
     </tbody>
@@ -26,9 +30,12 @@
       <tr>
         <th></th>
         <th></th>
-        <th>{{cart.sum | currency:'INR':'symbol'}}</th>
+        <th></th>
+        <th class="price">{{cart.sum | currency:'INR':'symbol'}}</th>
       </tr>
     </tfoot>
   </table>
+  <a [routerLink]="['/checkout']" *ngIf="cart.cartItems.length"  class="btn btn-primary btn-sm">Check out</a>
+  
 </ng-container>
 </div>

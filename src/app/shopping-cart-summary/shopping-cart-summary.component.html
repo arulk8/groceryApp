@@ -1,0 +1,14 @@
+<div *ngIf="cart" class="card">
+   
+    <div class="card-body">
+      <h4 class="card-title">Order summary</h4>
+      <p class="card-text">you have {{ cart.count }} item in your cart</p>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let item of cart.cartItems" class="list-group-item">
+          {{item.value.product.title}} X {{item.value.quantity}} 
+          <div class="float-right"> {{item.value.product.price * item.value.quantity | currency:'INR':'symbol'}} </div>
+        </li>
+        <li class="list-group-item font-weight-bold">total <div class="float-right">{{cart.sum | currency:'INR':'symbol'}}</div></li>
+      </ul>
+    </div>
+  </div>

@@ -2,7 +2,8 @@ import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { observable} from 'rxjs';
 import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class AuthGaurdService implements CanActivate {
    return this.authService.user$.pipe(
       map(user => {
         if (user) {return true; }
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url}});
+        this.router.navigate(['/register']);
         return false;
       }
     ));

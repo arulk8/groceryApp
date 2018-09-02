@@ -1,4 +1,5 @@
 
+
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
@@ -11,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSortModule } from '@angular/material/sort';
-import {MatPaginator, MatTableDataSource, MatTableModule, MatPaginatorModule,MatCardModule} from '@angular/material';
+import {MatPaginator, MatTableDataSource, MatTableModule, MatPaginatorModule, MatCardModule} from '@angular/material';
 
 
 import { AuthGaurdService } from './service/auth-gaurd.service';
@@ -21,6 +22,7 @@ import { AdminAuthGaurdService } from './service/admin-auth-gaurd.service';
 import { CategoryService } from './services/category.service';
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
+import { OrderService } from './services/order.service';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -37,6 +39,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 
 
 
@@ -57,7 +61,9 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +82,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
       {path: 'shopping-cart', component: ShoppingCartComponent},
 
       {path: 'checkout', component: CheckOutComponent, canActivate: [AuthGaurdService]},
-      {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGaurdService]},
+      {path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGaurdService]},
       {path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGaurdService]},
 
       {path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGaurdService, AdminAuthGaurdService]},
@@ -97,7 +103,8 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
       AdminAuthGaurdService,
       CategoryService,
       ProductService,
-      CartService
+      CartService,
+      OrderService
     ],
   bootstrap: [AppComponent]
 })

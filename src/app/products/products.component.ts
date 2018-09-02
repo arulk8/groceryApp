@@ -25,7 +25,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       // we cannot use activatedroute.snapshot.queryParams.get('category');
       // beacuse is component s not going to destroyed we are going to same component;
       // so we are using observable
-      
       }
     createArray(res: any, arry: any[]) {
       const allKeys = Object.keys(res).sort();
@@ -58,8 +57,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
           }) : this.products;
        });
 
-       this.shoppingcartservice.getCartProducts().then(res =>
-        {
+       this.shoppingcartservice.getCartProducts().then(res => {
          res.subscribe(result => {
               this.cart = result;
               console.log(result);

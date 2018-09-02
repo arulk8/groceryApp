@@ -13,7 +13,7 @@ constructor(private userRole: RoleService, private auth: AuthService, private ro
 auth.user$.subscribe(user => {
   if (user) {
     userRole.save(user);
-    let queryUrl = localStorage.getItem('queryurl');
+    const queryUrl = localStorage.getItem('queryurl');
     if (queryUrl) {
       localStorage.removeItem('queryurl');
       ro.navigate([queryUrl]);

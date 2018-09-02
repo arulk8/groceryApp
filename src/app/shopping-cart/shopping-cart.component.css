@@ -1,0 +1,15 @@
+th,td {
+ width: 250px !important;
+}
+.price{
+    text-align: center;
+}
+.thumb{
+    width:80px;
+    height: 80px;
+    border-radius:100%;
+    background-size: cover;
+}
+.img{
+    width: 100px !important;
+}

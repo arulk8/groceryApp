@@ -13,7 +13,11 @@ import { of } from 'rxjs';
 export class AuthService {
   user$: Observable<firebase.User>; // this $ is used for differentiating between observable and variable
 
-  constructor(public afAuth: AngularFireAuth, public route: ActivatedRoute, private ro: Router, private userService: RoleService) {
+  constructor(
+    public afAuth: AngularFireAuth,
+    public route: ActivatedRoute,
+    private userService: RoleService
+    ) {
     this.user$ = afAuth.authState;
    }
 

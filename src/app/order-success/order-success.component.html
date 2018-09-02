@@ -1,3 +1,24 @@
-<p>
-  order-success works!
-</p>
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10" *ngIf="order">
+  <h2>Order Sucess</h2>
+  <p> Dear {{order.shippingAddress.name}} your orders are sucessfully places and shipped to the address {{order.shippingAddress.addressLine1}} {{order.shippingAddress.addressLine2}} Happy shopping! </p>
+  <table class="table">
+    <thead >
+      <tr>
+      <th>Title</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prod of order.items">
+        <td>{{prod.product.title}}</td>
+        <td>{{prod.quantity}}</td>
+        <td>{{prod.totalPrice}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="col-md-1"></div>
+</div>

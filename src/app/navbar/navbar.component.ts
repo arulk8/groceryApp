@@ -1,6 +1,6 @@
 import { CartService } from './../services/cart.service';
 import { AuthService } from './../service/auth.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ShoppingCart } from '../models/shopping-cart';
 
@@ -9,22 +9,20 @@ import { ShoppingCart } from '../models/shopping-cart';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy,  AfterViewInit {
   public user$: any;
   private sub: any;
   itemCount: number;
   constructor(private authService: AuthService, private shoppingcart: CartService) {
    this.sub = authService.appUser$.subscribe(user => this.user$ = user);
+   this.itemCount = this.shoppingcart.count;
   }
 
   logout() {
     this.authService.logout();
   }
 
-  async ngOnInit() {
-    const cart$ =  await this.shoppingcart.getCartProducts();
-    cart$.subscribe(cart => {
-      this.itemCount = cart.count;
+   ngOnInit() {
       // const productIds = Object.keys(cart.items);
 
       //   for ( const productId of productIds) {
@@ -32,7 +30,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       //       this.itemCount += cart.items[productId].quantity;
       //       console.log(cart.count);
       //   }
-    });
+  }
+
+   ngAfterViewInit() {
   }
 
   ngOnDestroy() {

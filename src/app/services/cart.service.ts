@@ -10,8 +10,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
-
-  constructor(private db: AngularFireDatabase) { }
+  countObservable: Observable<number>;
+  count: number;
+  constructor(private db: AngularFireDatabase) {
+   }
   private create() {
     return this.db.list('/shopping-carts').push({
       dateCreated: new Date().getTime(),
@@ -19,15 +21,25 @@ export class CartService {
   }
 
   public async getCartProducts() { // : Promise<Observable<ShoppingCart>>
+
     const cartId = await this.createOreditId();
+    if (cartId) {
     return this.db.object('/shopping-carts/' + cartId).valueChanges().pipe(
       map( res => {
         let cart: any;
         cart = res;
-        // console.log(cart.dateCreated, cart.items);
         return new ShoppingCart(cart.dateCreated, cart.items);
-      })
-    );
+    })
+    ).pipe( map(res => {
+      this.count = res.count;
+      console.log(this.count);
+      return res;
+    }));
+  }
+}
+ async clearCart() {
+    const cartId = await this.createOreditId();
+    this.db.object('/shopping-carts/' + cartId + '/items').remove();
   }
 
   private async createOreditId() {
@@ -60,9 +72,13 @@ export class CartService {
     const items$: AngularFireObject<CartItem> = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
     items$.valueChanges().pipe(take(1)).subscribe(item => {
       if (item) {
+        if (item.quantity === 1) {
+          items$.remove();
+        } else {
           items$.update({
             quantity: item.quantity - 1,
           });
+        }
       } else {
         items$.set({
           product: product.value,
@@ -71,4 +87,5 @@ export class CartService {
       }
     });
   }
+
 }
